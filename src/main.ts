@@ -22,7 +22,7 @@ const main = async () => {
 
 
   server.start();
-}
+};
 
 
 (async () => {
