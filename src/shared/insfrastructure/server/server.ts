@@ -1,5 +1,7 @@
 import compression from 'compression';
+import cors from 'cors';
 import express, { Router } from 'express';
+import helmet from 'helmet';
 
 import { notFoundMiddleware } from './middlewares';
 
@@ -34,9 +36,11 @@ export class Server {
   async start() {
 
     ///* Middlewares
+    this.app.use(cors());
     this.app.use(express.json());
     // this.app.use(express.urlencoded({ extended: true }));
     this.app.use(compression());
+    this.app.use(helmet());
 
 
     ///* Serve Static Content
