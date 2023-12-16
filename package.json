@@ -15,6 +15,7 @@
   "author": "Adrian Changalombo",
   "license": "ISC",
   "dependencies": {
+    "awilix": "^9.0.0",
     "compression": "^1.7.4",
     "dotenv": "^16.3.1",
     "env-var": "^7.4.1",
