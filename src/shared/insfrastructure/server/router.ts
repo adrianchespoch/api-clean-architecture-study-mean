@@ -1,12 +1,16 @@
 import { Router } from 'express';
 
+import { AuthRoutes } from '@/auth/infrastructure/rest/auth.routes';
 
 export class AppRouter {
+  ///* DI
+  constructor(private readonly authRoutes: AuthRoutes) {}
 
-  static get routes(): Router {
+  get routes(): Router {
     const router = Router();
+
+    router.use('/api/auth', this.authRoutes.routes);
 
     return router;
   }
-
 }
