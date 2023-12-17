@@ -10,6 +10,8 @@ export class UserRegistrator implements RegisterUser {
 
 
   async run(userLike: UserLike): Promise<UserToken> {
+    userLike.state = true;
+
     ///* create user to register DomainEvents
     const user = User.create(userLike);
 
