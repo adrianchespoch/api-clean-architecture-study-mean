@@ -1,7 +1,7 @@
 import { Nullable } from '@/shared/domain';
 import { User } from '@/users/domain/entities';
 import { UserRepository } from '@/users/domain/repositories';
-import UserModel from './mongo/UserModel';
+import UserModel from '../persistence/mongo/UserModel';
 
 export class MongoUsersRepository implements UserRepository {
   findAll(): Promise<User[]> {
