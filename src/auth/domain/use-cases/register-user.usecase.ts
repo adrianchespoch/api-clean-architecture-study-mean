@@ -1,4 +1,4 @@
-import { User } from '@/users/domain/entities';
+import { type User, UserProps } from '@/users/domain/entities';
 
 
 export interface UserToken {
@@ -6,9 +6,11 @@ export interface UserToken {
   user: User;
 }
 
+export type UserLike = UserProps & object;
+
 
 export interface RegisterUser {
 
-  run(user: object): Promise<UserToken>;
+  run(user: UserLike): Promise<UserToken>;
 
 }
