@@ -1,10 +1,14 @@
-import { envs } from './shared/insfrastructure/config';
+import { diContainer, envs } from './shared/insfrastructure/config';
 import { MongoDB } from './shared/insfrastructure/persistence/mongo';
 import { AppRouter } from './shared/insfrastructure/server/router';
 import { Server } from './shared/insfrastructure/server/server';
 
 
 const main = async () => {
+
+  // DI
+  const AppRouter = diContainer.resolve<AppRouter>('AppRouter');
+
 
   /* MongoDB */
   await MongoDB.connect({
