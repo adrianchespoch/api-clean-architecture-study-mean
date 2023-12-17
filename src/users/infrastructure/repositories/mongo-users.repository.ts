@@ -12,8 +12,11 @@ export class MongoUsersRepository implements UserRepository {
     throw new Error('Method not implemented.');
   }
 
-  findOneByEmail(email: string): Promise<Nullable<User>> {
-    throw new Error('Method not implemented.');
+  async findOneByEmail(email: string): Promise<Nullable<User>> {
+    const user = await UserModel.findOne({ email });
+    if (!user) return null;
+
+    return user as any;
   }
 
   async create(user: User): Promise<User> {
