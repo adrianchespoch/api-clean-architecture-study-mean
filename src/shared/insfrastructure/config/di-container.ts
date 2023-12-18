@@ -13,6 +13,7 @@ import { AuthRoutes } from '@/auth/infrastructure/rest/auth.routes';
 import { AppRouter } from '../server/router';
 
 import { BcryptAdapter, JwtAdapter } from '@/auth/infrastructure/adapters';
+import { UserCreator } from '@/users/application/use-cases';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -25,6 +26,7 @@ container
   })
   .register({
     // // UseCases
+    userCreator: asClass(UserCreator),
     userRegistrator: asClass(UserRegistrator),
     authTokenGenerator: asClass(AuthTokenGenerator),
   })
