@@ -1,6 +1,9 @@
 import { User } from '@/users/domain/entities';
+import { UserResponseDto } from '../dtos';
+
 
 export class UserMapper {
+
   public static entityToDomainModel(object: { [key: string]: any }): User {
     // new 'cause .create is to emmit domain events
 
@@ -19,4 +22,13 @@ export class UserMapper {
       object.description
     );
   }
+
+  public static domainModelToResponseDto(object: {
+    [key: string]: any;
+  }): UserResponseDto {
+    const { user, token } = object;
+
+    return UserResponseDto.create({ user, token });
+  }
+
 }

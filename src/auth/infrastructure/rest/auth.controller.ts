@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 
+import { LoginDto } from '@/auth/domain/dtos';
 import { UnauthorizedError } from '@/auth/domain/errors';
 import { LoginUser, RegisterUser } from '@/auth/domain/use-cases';
 import { DomainError, ResourceNotFoundError } from '@/shared/domain';
+import { UserMapper } from '@/users/infrastructure/mappers';
 
 export class AuthController {
   ///* DI
@@ -15,7 +17,8 @@ export class AuthController {
     try {
       const userToken = await this.userRegistrator.run(req.body);
 
-      return res.status(201).json(userToken);
+      const userMapped = UserMapper.domainModelToResponseDto(userToken);
+      return res.status(201).json(userMapped);
     } catch (error) {
       this.handleError(error, res);
     }
@@ -23,12 +26,12 @@ export class AuthController {
 
   login = async (req: Request, res: Response) => {
     try {
-      // const loginDto = LoginDto.create(req.body);
+      const loginDto = LoginDto.create(req.body);
 
-      const userToken = await this.userLogin.run(req.body);
+      const userToken = await this.userLogin.run(loginDto);
 
-      // const userMapped = UserMapper.domainModelToResponseDto(userToken);
-      return res.status(201).json(userToken);
+      const userMapped = UserMapper.domainModelToResponseDto(userToken);
+      return res.status(201).json(userMapped);
     } catch (error) {
       this.handleError(error, res);
     }
