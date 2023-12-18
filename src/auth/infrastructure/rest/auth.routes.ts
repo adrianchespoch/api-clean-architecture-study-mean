@@ -9,6 +9,7 @@ export class AuthRoutes {
     const router = Router();
 
     router.post('/register', this.authController.register);
+    router.post('/login', this.authController.login);
 
     return router;
   }

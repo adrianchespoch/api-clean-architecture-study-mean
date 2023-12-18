@@ -1,18 +1,33 @@
 import { Request, Response } from 'express';
 
 import { UnauthorizedError } from '@/auth/domain/errors';
-import { RegisterUser } from '@/auth/domain/use-cases';
+import { LoginUser, RegisterUser } from '@/auth/domain/use-cases';
 import { DomainError, ResourceNotFoundError } from '@/shared/domain';
 
 export class AuthController {
   ///* DI
-  constructor(private readonly userRegistrator: RegisterUser) {}
+  constructor(
+    private readonly userRegistrator: RegisterUser,
+    private readonly userLogin: LoginUser
+  ) {}
 
   register = async (req: Request, res: Response) => {
     try {
-      // TODO: userCreator (user) injected in userRegistrator (UserToken)
       const userToken = await this.userRegistrator.run(req.body);
 
+      return res.status(201).json(userToken);
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  login = async (req: Request, res: Response) => {
+    try {
+      // const loginDto = LoginDto.create(req.body);
+
+      const userToken = await this.userLogin.run(req.body);
+
+      // const userMapped = UserMapper.domainModelToResponseDto(userToken);
       return res.status(201).json(userToken);
     } catch (error) {
       this.handleError(error, res);
