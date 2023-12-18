@@ -4,6 +4,7 @@ import { MongoUsersRepository } from '@/users/infrastructure/repositories';
 
 import {
   AuthTokenGenerator,
+  UserLogin,
   UserRegistrator,
 } from '@/auth/application/use-cases';
 
@@ -27,8 +28,9 @@ container
   .register({
     // // UseCases
     userCreator: asClass(UserCreator),
-    userRegistrator: asClass(UserRegistrator),
     authTokenGenerator: asClass(AuthTokenGenerator),
+    userRegistrator: asClass(UserRegistrator),
+    userLogin: asClass(UserLogin),
   })
   .register({
     // // Controllers
