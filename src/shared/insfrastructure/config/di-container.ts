@@ -8,6 +8,7 @@ import { AuthController } from '@/auth/infrastructure/rest/auth.controller';
 
 import { UserRegistrator } from '@/auth/application/use-cases';
 import { AppRouter } from '../server/router';
+import { BcryptAdapter } from '@/auth/infrastructure/adapters';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -30,6 +31,10 @@ container
     // // Routes
     authRoutes: asClass(AuthRoutes),
     AppRouter: asClass(AppRouter),
+  })
+  .register({
+    // // UseCases - Adapters
+    passwordProcessor: asClass(BcryptAdapter),
   });
 
 export { container as diContainer };
