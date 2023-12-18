@@ -1,6 +1,7 @@
 import { Nullable } from '@/shared/domain';
 import { User } from '@/users/domain/entities';
 import { UserRepository } from '@/users/domain/repositories';
+import { UserMapper } from '../mappers';
 import UserModel from '../persistence/mongo/UserModel';
 
 export class MongoUsersRepository implements UserRepository {
@@ -16,14 +17,14 @@ export class MongoUsersRepository implements UserRepository {
     const user = await UserModel.findOne({ email });
     if (!user) return null;
 
-    return user as any;
+    return UserMapper.entityToDomainModel(user);
   }
 
   async create(user: User): Promise<User> {
     const newUser = new UserModel(user);
     await newUser.save();
 
-    return newUser as any;
+    return UserMapper.entityToDomainModel(newUser);
   }
 
   update(id: string, user: User): Promise<User> {
