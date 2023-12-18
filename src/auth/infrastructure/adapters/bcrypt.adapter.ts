@@ -1,6 +1,6 @@
-import { ProcessPassword } from '@/auth/domain/use-cases';
-
 import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
+
+import { ProcessPassword } from '@/users/domain/use-cases';
 
 
 export class BcryptAdapter implements ProcessPassword {

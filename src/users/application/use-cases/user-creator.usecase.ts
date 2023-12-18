@@ -1,8 +1,7 @@
-import { UserAlreadyExistError } from '@/auth/domain/errors';
-import { ProcessPassword } from '@/auth/domain/use-cases';
 import { User } from '@/users/domain/entities';
+import { UserAlreadyExistError } from '@/users/domain/errors';
 import { UserRepository } from '@/users/domain/repositories';
-import { CreateUser, UserLike } from '@/users/domain/use-cases';
+import { CreateUser, ProcessPassword, UserLike } from '@/users/domain/use-cases';
 
 
 export class UserCreator implements CreateUser {
@@ -18,7 +17,7 @@ export class UserCreator implements CreateUser {
     const userSaved = await this.userRepository.findOneByEmail(userLike.email);
     if (userSaved) throw new UserAlreadyExistError('Email already registered');
 
-    ///* hash password & setup user before to persist
+    ///* hash password & setup user before persisting
     userLike.password = this.passwordProcessor.hash(userLike.password);
 
     userLike.state = true;
