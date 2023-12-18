@@ -1,7 +1,7 @@
 import { InvalidArgumentError } from '@/shared/domain';
 
 export type UserProps = {
-  id?: number;
+  id?: string;
   rol: UserRole;
   name: string;
   surname: string;
@@ -21,7 +21,7 @@ export enum UserRole {
 
 export class User {
   constructor(
-    public readonly id: number | null | undefined,
+    public readonly id: string | null | undefined,
     public readonly rol: UserRole,
     public readonly name: string,
     public readonly surname: string,

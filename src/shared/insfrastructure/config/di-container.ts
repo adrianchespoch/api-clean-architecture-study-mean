@@ -2,7 +2,10 @@ import { InjectionMode, asClass, createContainer } from 'awilix';
 
 import { MongoUsersRepository } from '@/users/infrastructure/repositories';
 
-import { UserRegistrator } from '@/auth/application/use-cases';
+import {
+  AuthTokenGenerator,
+  UserRegistrator,
+} from '@/auth/application/use-cases';
 
 import { AuthController } from '@/auth/infrastructure/rest/auth.controller';
 
@@ -23,6 +26,7 @@ container
   .register({
     // // UseCases
     userRegistrator: asClass(UserRegistrator),
+    authTokenGenerator: asClass(AuthTokenGenerator),
   })
   .register({
     // // Controllers

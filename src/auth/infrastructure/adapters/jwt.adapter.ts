@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import { HandleAuthToken } from '@/auth/domain/use-cases';
+import { HandleAuthToken } from '@/auth/application/use-cases';
 import { JwtConstants } from '@/shared/application/constants';
 import { Nullable } from '@/shared/domain';
 import { envs } from '@/shared/insfrastructure/config';
