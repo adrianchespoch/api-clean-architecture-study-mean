@@ -2,7 +2,12 @@ import { Request, Response } from 'express';
 
 import { LoginDto } from '@/auth/domain/dtos';
 import { UnauthorizedError } from '@/auth/domain/errors';
-import { LoginUser, RegisterUser } from '@/auth/domain/use-cases';
+import {
+  GenerateAuthToken,
+  LoginUser,
+  RegisterUser,
+} from '@/auth/domain/use-cases';
+import { JwtConstants } from '@/shared/application/constants';
 import { DomainError, ResourceNotFoundError } from '@/shared/domain';
 import { UserRole } from '@/users/domain/entities';
 import { UserMapper } from '@/users/infrastructure/mappers';
@@ -11,7 +16,8 @@ export class AuthController {
   ///* DI
   constructor(
     private readonly userRegistrator: RegisterUser,
-    private readonly userLogin: LoginUser
+    private readonly userLogin: LoginUser,
+    private readonly authTokenGenerator: GenerateAuthToken
   ) {}
 
   register = async (req: Request, res: Response) => {
@@ -49,6 +55,27 @@ export class AuthController {
       });
 
       const userMapped = UserMapper.domainModelToResponseDto(userToken);
+      return res.status(201).json(userMapped);
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  renewJwt = async (req: Request, res: Response) => {
+    try {
+      const { authUser } = req.body;
+      if (!authUser) throw new UnauthorizedError('Invalid token');
+
+      ///* generate JWT
+      const token = await this.authTokenGenerator.run(
+        { id: authUser.id },
+        JwtConstants.duration
+      );
+
+      const userMapped = UserMapper.domainModelToResponseDto({
+        user: authUser,
+        token,
+      });
       return res.status(201).json(userMapped);
     } catch (error) {
       this.handleError(error, res);

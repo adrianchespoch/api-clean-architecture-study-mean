@@ -13,7 +13,7 @@ const UserSchema = new Schema(
     email: { type: String, maxlength: 250, required: true, unique: true },
     password: { type: String, maxlength: 250, required: true },
     avatar: { type: String, maxlength: 250, required: false },
-    state: { type: Number, default: 1 }, //1 ES ACTIVO 2 ES INACTIVO
+    state: { type: Boolean, default: true }, //1 ES ACTIVO 2 ES INACTIVO
     phone: { type: String, maxlength: 30, required: false },
     birthday: { type: String, maxlength: 30, required: false },
     // is_instructor:{type:Number,required:false,default: null},// 1 es instructor
