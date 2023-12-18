@@ -10,6 +10,8 @@ export class AuthRoutes {
 
     router.post('/register', this.authController.register);
     router.post('/login', this.authController.login);
+    
+    router.post('/register-admin', this.authController.registerAdmin);
 
     return router;
   }

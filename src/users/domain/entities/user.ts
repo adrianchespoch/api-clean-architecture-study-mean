@@ -71,64 +71,66 @@ export class User {
     birthday,
     profession,
     description,
-  }: UserProps) {
+  }: UserProps): void {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (id && typeof id !== 'number') {
+    if (id && typeof id !== 'number')
       throw new InvalidArgumentError('Invalid ID');
-    }
-    if (!rol || rol.length > 30) {
+
+    if (!rol || rol.length > 30)
       throw new InvalidArgumentError(
         'Role length should be less than or equal to 30 characters.'
       );
-    }
-    if (name.length < 3 || name.length > 250) {
+
+    if (rol !== UserRole.client && rol != UserRole.admin)
+      throw new InvalidArgumentError(`'${rol}' is an invalid role`);
+
+    if (name.length < 3 || name.length > 250)
       throw new InvalidArgumentError(
         'Name should be between 3 and 250 characters.'
       );
-    }
-    if (surname.length < 3 || surname.length > 250) {
+
+    if (surname.length < 3 || surname.length > 250)
       throw new InvalidArgumentError(
         'Surname should be between 3 and 250 characters.'
       );
-    }
-    if (!emailPattern.test(email)) {
+
+    if (!emailPattern.test(email))
       throw new InvalidArgumentError('Invalid email format.');
-    }
-    if (password.length < 3 || password.length > 250) {
+
+    if (password.length < 3 || password.length > 250)
       throw new InvalidArgumentError(
         'Password should be at least 6 characters.'
       );
-    }
-    if (typeof state !== 'boolean') {
+
+    if (typeof state !== 'boolean')
       throw new InvalidArgumentError(
         'State should be true (active) or false (inactive).'
       );
-    }
-    if (avatar && avatar.length > 250) {
+
+    if (avatar && avatar.length > 250)
       throw new InvalidArgumentError(
         'Avatar length should be less than or equal to 250 characters.'
       );
-    }
-    if (phone && phone.length > 30) {
+
+    if (phone && phone.length > 30)
       throw new InvalidArgumentError(
         'Phone length should be less than or equal to 30 characters.'
       );
-    }
-    if (birthday && birthday.length > 30) {
+
+    if (birthday && birthday.length > 30)
       throw new InvalidArgumentError(
         'Birthday length should be less than or equal to 30 characters.'
       );
-    }
-    if (profession && profession.length > 250) {
+
+    if (profession && profession.length > 250)
       throw new InvalidArgumentError(
         'Profession length should be less than or equal to 250 characters.'
       );
-    }
-    if (description && description.length > 250) {
+
+    if (description && description.length > 250)
       throw new InvalidArgumentError(
         'Description length should be less than or equal to 250 characters.'
       );
-    }
   }
 }
