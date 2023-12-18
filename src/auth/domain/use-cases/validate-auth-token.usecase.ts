@@ -1,8 +1,9 @@
 import { Nullable } from '@/shared/domain';
+import { User } from '@/users/domain/entities';
 
 
 export interface ValidateAuthToken {
 
-  validateToken<T>(token: string): Promise<Nullable<T>>;
+  run(bearerToken: string): Promise<Nullable<User>>;
 
 }
