@@ -3,6 +3,6 @@ import { UserToken } from './register-user.usecase';
 
 export interface LoginUser {
 
-  run(user: LoginDto): Promise<UserToken>;
+  run(loginDto: LoginDto): Promise<UserToken>;
 
 }
