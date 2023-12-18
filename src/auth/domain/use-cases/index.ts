@@ -1,4 +1,5 @@
 export * from './check-admin-privileges.usecase';
+export * from './find-user.usecase';
 export * from './generate-auth-token.usecase';
 export * from './login-user.usecase';
 export * from './register-user.usecase';
