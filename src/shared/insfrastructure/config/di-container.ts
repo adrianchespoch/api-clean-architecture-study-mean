@@ -4,6 +4,8 @@ import { MongoUsersRepository } from '@/users/infrastructure/repositories';
 
 import {
   AuthTokenGenerator,
+  AuthTokenValidator,
+  UserFinder,
   UserLogin,
   UserRegistrator,
 } from '@/auth/application/use-cases';
@@ -15,6 +17,7 @@ import { AppRouter } from '../server/router';
 
 import { BcryptAdapter, JwtAdapter } from '@/auth/infrastructure/adapters';
 import { UserCreator } from '@/users/application/use-cases';
+import { AuthMiddleware } from '../server/middlewares';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -28,9 +31,11 @@ container
   .register({
     // // UseCases
     userCreator: asClass(UserCreator),
+    userFinder: asClass(UserFinder),
     authTokenGenerator: asClass(AuthTokenGenerator),
     userRegistrator: asClass(UserRegistrator),
     userLogin: asClass(UserLogin),
+    authTokenValidator: asClass(AuthTokenValidator),
   })
   .register({
     // // Controllers
@@ -45,6 +50,9 @@ container
     // // UseCases - Adapters
     passwordProcessor: asClass(BcryptAdapter),
     authTokenHandler: asClass(JwtAdapter),
+  })
+  .register({
+    authMiddleware: asClass(AuthMiddleware),
   });
 
 export { container as diContainer };
