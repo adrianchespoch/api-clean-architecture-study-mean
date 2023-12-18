@@ -9,8 +9,11 @@ export class MongoUsersRepository implements UserRepository {
     throw new Error('Method not implemented.');
   }
 
-  findOne(id: string): Promise<Nullable<User>> {
-    throw new Error('Method not implemented.');
+  async findOne(id: string): Promise<Nullable<User>> {
+    const user = await UserModel.findById(id);
+    if (!user) return null;
+
+    return UserMapper.entityToDomainModel(user);
   }
 
   async findOneByEmail(email: string): Promise<Nullable<User>> {
