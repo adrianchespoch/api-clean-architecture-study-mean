@@ -10,6 +10,7 @@ export class AuthController {
 
   register = async (req: Request, res: Response) => {
     try {
+      // TODO: userCreator (user) injected in userRegistrator (UserToken)
       const userToken = await this.userRegistrator.run(req.body);
 
       return res.status(201).json(userToken);
