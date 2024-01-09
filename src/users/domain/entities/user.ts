@@ -17,6 +17,7 @@ export type UserProps = {
 export enum UserRole {
   client = 'client',
   admin = 'admin',
+  instructor = 'instructor',
 }
 
 export class User {
@@ -82,7 +83,11 @@ export class User {
         'Role length should be less than or equal to 30 characters.'
       );
 
-    if (rol !== UserRole.client && rol != UserRole.admin)
+    if (
+      rol !== UserRole.client &&
+      rol !== UserRole.admin &&
+      rol !== UserRole.instructor
+    )
       throw new InvalidArgumentError(`'${rol}' is an invalid role`);
 
     if (name.length < 3 || name.length > 250)

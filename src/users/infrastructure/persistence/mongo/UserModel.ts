@@ -6,7 +6,7 @@ const UserSchema = new Schema(
       type: String,
       maxlength: 30,
       required: true,
-      enum: ['client', 'admin'],
+      enum: ['client', 'admin', 'instructor'],
     },
     name: { type: String, maxlength: 250, required: true },
     surname: { type: String, maxlength: 250, required: true },
@@ -16,7 +16,6 @@ const UserSchema = new Schema(
     state: { type: Boolean, default: true }, //1 ES ACTIVO 2 ES INACTIVO
     phone: { type: String, maxlength: 30, required: false },
     birthday: { type: String, maxlength: 30, required: false },
-    // is_instructor:{type:Number,required:false,default: null},// 1 es instructor
     profession: { type: String, maxlength: 250, required: false },
     description: { type: String, required: false },
   },
